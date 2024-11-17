@@ -25,7 +25,7 @@ public class ProfessorService {
 		return professorRepository.findById(id);
 		}
 
-	public Professor criarAluno(Professor professor) {
+	public Professor criarProfessor(Professor professor) {
 		return professorRepository.save(professor);
 	}
 	
