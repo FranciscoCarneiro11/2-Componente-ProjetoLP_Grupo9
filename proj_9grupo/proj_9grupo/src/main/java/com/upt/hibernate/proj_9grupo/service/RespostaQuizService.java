@@ -1,8 +1,6 @@
 package com.upt.hibernate.proj_9grupo.service;
 
-import com.upt.hibernate.proj_9grupo.model.Quiz;
 import com.upt.hibernate.proj_9grupo.model.RespostaQuiz;
-import com.upt.hibernate.proj_9grupo.repository.QuizRepository;
 import com.upt.hibernate.proj_9grupo.repository.RespostaQuizRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -25,7 +25,7 @@ public class UtilizadorService {
 		return utilizadorRepository.findById(id);
 		}
 
-	public Utilizador criarRespostaQuiz(Utilizador utilizador) {
+	public Utilizador criarUtilizador(Utilizador utilizador) {
 		return utilizadorRepository.save(utilizador);
 	}
 	
