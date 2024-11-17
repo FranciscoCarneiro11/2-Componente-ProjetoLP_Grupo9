@@ -1,6 +1,7 @@
 package com.upt.hibernate.proj_9grupo.service;
 
 import com.upt.hibernate.proj_9grupo.model.Professor;
+import com.upt.hibernate.proj_9grupo.model.Utilizador;
 import com.upt.hibernate.proj_9grupo.repository.ProfessorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,9 +24,10 @@ public class ProfessorService {
 	
 	public Optional<Professor> getProfessorById(Long id) {
 		return professorRepository.findById(id);
-		}
+	}
 
 	public Professor criarProfessor(Professor professor) {
+		professor.setTipoUtilizador(Utilizador.TipoUtilizador.professor);
 		return professorRepository.save(professor);
 	}
 	
