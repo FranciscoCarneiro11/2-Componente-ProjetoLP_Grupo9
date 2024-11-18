@@ -1,6 +1,8 @@
 package com.upt.hibernate.proj_9grupo.service;
 
+import com.upt.hibernate.proj_9grupo.model.Professor;
 import com.upt.hibernate.proj_9grupo.model.Quiz;
+import com.upt.hibernate.proj_9grupo.repository.ProfessorRepository;
 import com.upt.hibernate.proj_9grupo.repository.QuizRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,10 +13,12 @@ import java.util.Optional;
 public class QuizService {
 
 	private final QuizRepository quizRepository;
+	private final ProfessorRepository professorRepository;
 	
 	@Autowired
-	public QuizService(QuizRepository quizRepository) {
+	public QuizService(QuizRepository quizRepository, ProfessorRepository professorRepository) {
 		this.quizRepository = quizRepository;
+		this.professorRepository = professorRepository;
 	}
 	
 	public List<Quiz> getAllQuizzes(){
@@ -32,6 +36,11 @@ public class QuizService {
 		
 		if(quiz.getProfessor() == null) {
 			throw new RuntimeException("O professor não pode ser nulo||");
+		}
+		
+		Optional<Professor> professorExistente = professorRepository.findById((long) quiz.getProfessor().getId());
+		if (!professorExistente.isPresent()) {
+		    throw new RuntimeException("Professor não encontrado!");
 		}
 		
 		return quizRepository.save(quiz);
