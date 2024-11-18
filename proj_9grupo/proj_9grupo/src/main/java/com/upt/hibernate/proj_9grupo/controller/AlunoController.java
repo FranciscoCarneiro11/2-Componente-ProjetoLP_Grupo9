@@ -1,12 +1,22 @@
 package com.upt.hibernate.proj_9grupo.controller;
 
-import com.upt.hibernate.proj_9grupo.model.Aluno;
-import com.upt.hibernate.proj_9grupo.service.AlunoService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import com.upt.hibernate.proj_9grupo.model.Aluno;
+import com.upt.hibernate.proj_9grupo.service.AlunoService;
+
 
 
 @RestController
@@ -32,12 +42,17 @@ public class AlunoController {
 		return alunoService.criarAluno(aluno);
 	}
 	
+	@PutMapping("/{id}")
+	 public Aluno updateAluno(@PathVariable Long id, @RequestBody Aluno aluno) {
+	 return alunoService.updateAluno(id, aluno);
+	 }
+	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> eliminarAluno(@PathVariable Long id) {
+	public String eliminarAluno(@PathVariable Long id) {
 		alunoService.eliminarAluno(id);
-		return ResponseEntity.noContent().build();
+		return "Aluno eliminado com sucesso!!";
+
 	}
 	
-	
-	//falta criar o "put" para atualizar o aluno
+
 }

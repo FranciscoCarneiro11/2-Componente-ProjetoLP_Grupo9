@@ -1,12 +1,21 @@
 package com.upt.hibernate.proj_9grupo.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import com.upt.hibernate.proj_9grupo.model.Professor;
 import com.upt.hibernate.proj_9grupo.service.ProfessorService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/api/professor")
@@ -31,12 +40,18 @@ public class ProfessorController {
 		return professorService.criarProfessor(professor);
 	}
 	
+	@PutMapping("/{id}")
+	 public Professor updateProfessor(@PathVariable Long id, @RequestBody Professor professor) {
+	 return professorService.updateProfessor(id, professor);
+	 }
+
+	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> eliminarProfessor(@PathVariable Long id) {
+	public String eliminarProfessor(@PathVariable Long id) {
 		professorService.eliminarProfessor(id);
-		return ResponseEntity.noContent().build();
+		return "Professor eliminado com sucesso!!";
+
 	}
 	
-	
-	//falta criar o "put" para atualizar o professor
+
 }
