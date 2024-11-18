@@ -10,4 +10,4 @@
 - Atualizar os metodos de atualizar aluno e professor nas classes Service de cada uma
 - Criar metodo para o professor ver ranking dos alunos
 - Criar metodo para os alunos verem as estatisticas da turma
-
+- Fazer a parte do client application
