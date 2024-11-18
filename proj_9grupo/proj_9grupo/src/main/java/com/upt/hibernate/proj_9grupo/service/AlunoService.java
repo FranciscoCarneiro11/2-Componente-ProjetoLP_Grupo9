@@ -40,6 +40,19 @@ public class AlunoService {
         return alunosRepository.save(aluno);
     }
 
+    public Aluno updateAluno(Long id, Aluno detalhesAluno) {
+    	Aluno aluno = alunosRepository.findById(id).orElse(null);
+    	if(aluno != null) {
+    		aluno.setNome(detalhesAluno.getNome());
+    		aluno.setEmail(detalhesAluno.getEmail());
+    		aluno.setAnoEscolaridade(detalhesAluno.getAnoEscolaridade());
+    		aluno.setNumAluno(detalhesAluno.getNumAluno());
+    	}
+    	
+    	return null;
+    }
+    
+    
     public void eliminarAluno(Long id) {
         if (alunosRepository.existsById(id)) {
             alunosRepository.deleteById(id);

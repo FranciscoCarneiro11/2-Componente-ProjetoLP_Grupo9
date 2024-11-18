@@ -36,6 +36,10 @@ public class RespostaQuizService {
 	    if (respostaquiz.getPontuacao() < 0) {
 	        throw new RuntimeException("A pontuação não pode ser menor que 0.");
 	    }
+	    
+	    if (respostaquizRepository.existsByAlunoAndQuiz(respostaquiz.getAluno(), respostaquiz.getQuiz())) {
+	        throw new RuntimeException("O aluno já respondeu a este quiz!!");
+	    }
 		
 		return respostaquizRepository.save(respostaquiz);
 	}

@@ -39,11 +39,17 @@ public class ProfessorService {
 		return professorRepository.save(professor);
 	}
 	
-	/*public Aluno atualizarProfessor(Long id, Professor professor) {
-		professor.setId(id);
+	public Professor updateProfessor(Long id, Professor detalhesProfessor) {
+		Professor professor = professorRepository.findById(id).orElse(null);
+		if(professor != null) {
+			professor.setNome(detalhesProfessor.getNome());
+			professor.setEmail(detalhesProfessor.getEmail());
+			professor.setDisciplina(detalhesProfessor.getDisciplina());
+			professor.setNumProfessor(detalhesProfessor.getNumProfessor());
+		}
 		
+		return null;
 	}
-	*/
 	
 	public void eliminarProfessor(Long id) {
 		if (professorRepository.existsById(id)) {
