@@ -27,6 +27,14 @@ public class ProfessorService {
 	}
 
 	public Professor criarProfessor(Professor professor) {
+		if(professor.getNumProfessor() <= 0) {
+			throw new RuntimeException("O nº do professor deve ser maior que 0!!!");
+		}
+		
+		if(professorRepository.existsByNumProfessor(professor.getNumProfessor())) {
+			throw new RuntimeException("Nº de professor já existente! Por favor escolha um diferente.");
+		}
+		
 		professor.setTipoUtilizador(Utilizador.TipoUtilizador.professor);
 		return professorRepository.save(professor);
 	}

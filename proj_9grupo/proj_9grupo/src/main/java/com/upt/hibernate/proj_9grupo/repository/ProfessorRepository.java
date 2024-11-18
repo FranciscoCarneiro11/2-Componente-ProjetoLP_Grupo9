@@ -9,7 +9,8 @@ import org.springframework.stereotype.Repository;
 public interface ProfessorRepository extends JpaRepository<Professor, Long> {
 	
 	List <Professor> findByNome(String nome);
-	List <Professor> findByNumeroProfessor(int numProfessor);
+	List <Professor> findByNumProfessor(int numProfessor);
 	List <Professor> findByDisciplina(String disciplina);
-	boolean existByEmail(String email);
+	//boolean existByEmail(String email);
+	boolean existsByNumProfessor(int numProfessor);
 }

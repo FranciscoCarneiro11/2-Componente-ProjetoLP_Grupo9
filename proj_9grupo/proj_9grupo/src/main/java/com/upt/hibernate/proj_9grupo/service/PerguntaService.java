@@ -26,6 +26,15 @@ public class PerguntaService {
 		}
 
 	public Pergunta criarPergunta(Pergunta pergunta) {
+		if(pergunta.getQuestao() == null || pergunta.getQuestao().isEmpty()) {
+			throw new RuntimeException("Não pode existir uma questão vazia!!!");
+		}
+		
+		if(pergunta.getOpcaoA() == null || pergunta.getOpcaoA().isEmpty() || pergunta.getOpcaoB() == null || pergunta.getOpcaoB().isEmpty() ||
+	       pergunta.getOpcaoC() == null || pergunta.getOpcaoC().isEmpty() || pergunta.getOpcaoD() == null || pergunta.getOpcaoD().isEmpty()) {
+			throw new RuntimeException("Não podem existir opções vazias! Todas as opções têm de ser preenchidas!!");
+		}
+		
 		return perguntaRepository.save(pergunta);
 	}
 	

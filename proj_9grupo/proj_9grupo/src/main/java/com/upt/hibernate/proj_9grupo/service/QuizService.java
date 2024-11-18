@@ -26,6 +26,14 @@ public class QuizService {
 		}
 
 	public Quiz criarQuiz(Quiz quiz) {
+		if(quiz.getTitulo() == null || quiz.getTitulo().isEmpty()) {
+			throw new RuntimeException("O título do quiz não pode ser vazio!");
+		}
+		
+		if(quiz.getProfessor() == null) {
+			throw new RuntimeException("O professor não pode ser nulo||");
+		}
+		
 		return quizRepository.save(quiz);
 	}
 	

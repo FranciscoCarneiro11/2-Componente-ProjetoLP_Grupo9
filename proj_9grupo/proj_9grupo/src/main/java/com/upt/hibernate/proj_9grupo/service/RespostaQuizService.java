@@ -25,6 +25,18 @@ public class RespostaQuizService {
 		}
 
 	public RespostaQuiz criarRespostaQuiz(RespostaQuiz respostaquiz) {
+		if (respostaquiz.getAluno() == null) {
+	        throw new RuntimeException("O aluno não pode ser nulo!");
+	    }
+
+	    if (respostaquiz.getQuiz() == null) {
+	        throw new RuntimeException("O quiz não pode ser nulo!");
+	    }
+
+	    if (respostaquiz.getPontuacao() < 0) {
+	        throw new RuntimeException("A pontuação não pode ser menor que 0.");
+	    }
+		
 		return respostaquizRepository.save(respostaquiz);
 	}
 	

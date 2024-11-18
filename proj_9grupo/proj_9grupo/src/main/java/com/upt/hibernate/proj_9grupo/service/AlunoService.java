@@ -28,6 +28,14 @@ public class AlunoService {
     }
 
     public Aluno criarAluno(Aluno aluno) {
+    	if(aluno.getNumAluno() <= 0) {
+    		throw new RuntimeException("O nº do aluno deve ser maior que 0!!!");
+    	}
+    	
+    	if(alunosRepository.existsByNumAluno(aluno.getNumAluno())) {
+    		throw new RuntimeException("Nº de aluno já existente. Por favor escolha outro!!");
+    	}
+    	
     	aluno.setTipoUtilizador(Utilizador.TipoUtilizador.aluno); 
         return alunosRepository.save(aluno);
     }

@@ -26,6 +26,18 @@ public class UtilizadorService {
 		}
 
 	public Utilizador criarUtilizador(Utilizador utilizador) {
+		if (utilizador.getNome() == null || utilizador.getNome().isEmpty()) {
+			throw new RuntimeException("O nome do utilizador não pode ser vazio!");
+			}
+
+		if (utilizador.getEmail() == null || utilizador.getEmail().isEmpty()) {
+			throw new RuntimeException("O email do utilizador não pode ser vazio!");
+			}
+
+		if (utilizadorRepository.existsByEmail(utilizador.getEmail())) {
+			throw new RuntimeException("O email já está a ser utilizado! Por favor escolha outro.");
+		 	}
+		
 		return utilizadorRepository.save(utilizador);
 	}
 	

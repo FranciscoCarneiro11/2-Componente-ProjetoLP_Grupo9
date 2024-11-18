@@ -12,6 +12,7 @@ public interface UtilizadorRepository extends JpaRepository<Utilizador, Long> {
 	
 	List <Utilizador> findByNome(String nome);
 	List <Utilizador> findByEmail(String email);
-	List<Utilizador> findByTipoDeUtilizador(Utilizador.TipoUtilizador tipoUtilizador);
+	List<Utilizador> findByTipoUtilizador(Utilizador.TipoUtilizador tipoUtilizador);
+	boolean existsByEmail(String email);
 	
 }
