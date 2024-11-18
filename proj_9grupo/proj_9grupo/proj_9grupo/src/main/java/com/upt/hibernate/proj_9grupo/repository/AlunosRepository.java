@@ -9,8 +9,9 @@ import org.springframework.stereotype.Repository;
 public interface AlunosRepository extends JpaRepository<Aluno, Long> {
 	
 	List <Aluno> findByNome(String nome);
-	List <Aluno> findByNumeroAluno(int numAluno);
+	List <Aluno> findByNumAluno(int numAluno);
 	List <Aluno> findByAnoEscolaridade(int anoEscolaridade);
-	boolean existByEmail(String email);
+	//boolean existsByEmail(String email);
+	boolean existsByNumAluno(int numAluno);
 	
 }

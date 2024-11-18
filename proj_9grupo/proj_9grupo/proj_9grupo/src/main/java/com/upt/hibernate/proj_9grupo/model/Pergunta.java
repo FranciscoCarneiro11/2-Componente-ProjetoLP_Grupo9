@@ -9,19 +9,19 @@ public class Pergunta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false)
+    @Column(name = "questao", nullable = false)
     private String questao;
 
-    @Column(nullable = false)
+    @Column(name = "opcao_a", nullable = false)
     private String opcaoA; 
 
-    @Column(nullable = false)
+    @Column(name = "opcao_b", nullable = false)
     private String opcaoB;
 
-    @Column(nullable = false)
+    @Column(name = "opcao_c", nullable = false)
     private String opcaoC;
 
-    @Column(nullable = false)
+    @Column(name = "opcao_d", nullable = false)
     private String opcaoD;
 
     @ManyToOne

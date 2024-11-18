@@ -1,6 +1,7 @@
 package com.upt.hibernate.proj_9grupo.service;
 
 import com.upt.hibernate.proj_9grupo.model.Professor;
+import com.upt.hibernate.proj_9grupo.model.Utilizador;
 import com.upt.hibernate.proj_9grupo.repository.ProfessorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,17 +24,32 @@ public class ProfessorService {
 	
 	public Optional<Professor> getProfessorById(Long id) {
 		return professorRepository.findById(id);
-		}
+	}
 
 	public Professor criarProfessor(Professor professor) {
+		if(professor.getNumProfessor() <= 0) {
+			throw new RuntimeException("O nº do professor deve ser maior que 0!!!");
+		}
+		
+		if(professorRepository.existsByNumProfessor(professor.getNumProfessor())) {
+			throw new RuntimeException("Nº de professor já existente! Por favor escolha um diferente.");
+		}
+		
+		professor.setTipoUtilizador(Utilizador.TipoUtilizador.professor);
 		return professorRepository.save(professor);
 	}
 	
-	/*public Aluno atualizarProfessor(Long id, Professor professor) {
-		professor.setId(id);
+	public Professor updateProfessor(Long id, Professor detalhesProfessor) {
+		Professor professor = professorRepository.findById(id).orElse(null);
+		if(professor != null) {
+			professor.setNome(detalhesProfessor.getNome());
+			professor.setEmail(detalhesProfessor.getEmail());
+			professor.setDisciplina(detalhesProfessor.getDisciplina());
+			professor.setNumProfessor(detalhesProfessor.getNumProfessor());
+		}
 		
+		return null;
 	}
-	*/
 	
 	public void eliminarProfessor(Long id) {
 		if (professorRepository.existsById(id)) {

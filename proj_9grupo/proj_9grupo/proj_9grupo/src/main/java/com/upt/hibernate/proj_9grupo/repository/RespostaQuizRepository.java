@@ -12,5 +12,5 @@ public interface RespostaQuizRepository extends JpaRepository<RespostaQuiz, Long
 	
 	List <RespostaQuiz> findByAluno(Aluno aluno);
 	List <RespostaQuiz> findByQuiz(Quiz quiz);
-	
+	 boolean existsByAlunoAndQuiz(Aluno aluno, Quiz quiz);
 }

@@ -1,8 +1,6 @@
 package com.upt.hibernate.proj_9grupo.service;
 
-import com.upt.hibernate.proj_9grupo.model.Quiz;
 import com.upt.hibernate.proj_9grupo.model.RespostaQuiz;
-import com.upt.hibernate.proj_9grupo.repository.QuizRepository;
 import com.upt.hibernate.proj_9grupo.repository.RespostaQuizRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +25,22 @@ public class RespostaQuizService {
 		}
 
 	public RespostaQuiz criarRespostaQuiz(RespostaQuiz respostaquiz) {
+		if (respostaquiz.getAluno() == null) {
+	        throw new RuntimeException("O aluno não pode ser nulo!");
+	    }
+
+	    if (respostaquiz.getQuiz() == null) {
+	        throw new RuntimeException("O quiz não pode ser nulo!");
+	    }
+
+	    if (respostaquiz.getPontuacao() < 0) {
+	        throw new RuntimeException("A pontuação não pode ser menor que 0.");
+	    }
+	    
+	    if (respostaquizRepository.existsByAlunoAndQuiz(respostaquiz.getAluno(), respostaquiz.getQuiz())) {
+	        throw new RuntimeException("O aluno já respondeu a este quiz!!");
+	    }
+		
 		return respostaquizRepository.save(respostaquiz);
 	}
 	

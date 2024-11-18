@@ -32,4 +32,6 @@ public class Professor extends Utilizador {
     public void setDisciplina(String disciplina) {
         this.disciplina = disciplina;
     }
+    
+    
 }

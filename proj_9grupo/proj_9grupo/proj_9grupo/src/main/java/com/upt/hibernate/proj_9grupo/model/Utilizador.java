@@ -72,4 +72,12 @@ public abstract class Utilizador {
     public void setEmail(String email) {
         this.email = email;
     }
+
+	@Override
+	public String toString() {
+		return "Utilizador [id=" + id + ", nome=" + nome + ", email=" + email + ", tipoUtilizador=" + tipoUtilizador
+				+ "]";
+	}
+    
+    
 }
