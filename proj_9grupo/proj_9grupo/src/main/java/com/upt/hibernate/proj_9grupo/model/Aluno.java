@@ -37,5 +37,14 @@ public class Aluno extends Utilizador {
 	        this.anoEscolaridade = anoEscolaridade;
 	    }
 
+		@Override
+		public String toString() {
+			return "Aluno [numAluno=" + numAluno + ", anoEscolaridade=" + anoEscolaridade + ", getId()=" + getId()
+					+ ", getNome()=" + getNome() + ", getTipoUtilizador()=" + getTipoUtilizador() + ", getEmail()="
+					+ getEmail() + "]";
+		}
+	    
+	    
+
 }
 

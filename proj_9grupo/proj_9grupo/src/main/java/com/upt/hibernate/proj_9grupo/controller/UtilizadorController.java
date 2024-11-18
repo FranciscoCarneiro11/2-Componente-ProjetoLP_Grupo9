@@ -11,12 +11,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
+
+import com.upt.hibernate.proj_9grupo.model.Aluno;
+import com.upt.hibernate.proj_9grupo.model.Professor;
 import com.upt.hibernate.proj_9grupo.model.Utilizador;
 import com.upt.hibernate.proj_9grupo.service.UtilizadorService;
 
 
 @RestController
-@RequestMapping("/api/utilizadores")
+@RequestMapping("/api/utilizador")
 public class UtilizadorController {
 
 	@Autowired
@@ -32,10 +35,15 @@ public class UtilizadorController {
 		return utilizadorService.getUtilizadoresById(id);
 	}
 	
-	@PostMapping
-	public Utilizador criarUtilizador(@RequestBody Utilizador utilizador) {
-		return utilizadorService.criarUtilizador(utilizador);
-	}
+	 @PostMapping("/aluno")
+	 public Aluno criarAluno(@RequestBody Aluno aluno) {
+		 return (Aluno) utilizadorService.criarUtilizador(aluno);
+	 }
+
+	 @PostMapping("/professor")
+	 public Professor criarProfessor(@RequestBody Professor professor) {
+		 return (Professor) utilizadorService.criarUtilizador(professor);
+	    }
 	
 	@PutMapping("/{id}")
 	public Utilizador updateUtilizador(@PathVariable Long id, @RequestBody Utilizador utilizador) {
