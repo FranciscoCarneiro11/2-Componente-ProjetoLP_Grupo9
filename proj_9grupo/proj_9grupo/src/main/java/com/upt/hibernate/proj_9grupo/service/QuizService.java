@@ -50,7 +50,6 @@ public class QuizService {
 	 * 
 	}
 	*/
-	
 	public void eliminarQuiz(Long id) {
 		if (quizRepository.existsById(id)) {
 				quizRepository.deleteById(id);

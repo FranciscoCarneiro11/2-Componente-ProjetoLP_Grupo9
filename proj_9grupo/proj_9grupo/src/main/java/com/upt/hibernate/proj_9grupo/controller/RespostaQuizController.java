@@ -25,7 +25,17 @@ public class RespostaQuizController {
 		Optional<RespostaQuiz> resposta = respostaQuizService.getRespostasById(id);
 		return resposta.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
 	}
-	
+	/*
+	 * @PutMapping("/{id}")
+    public ResponseEntity<RespostaQuiz> atualizarRespostaQuiz(@PathVariable Long id, @RequestBody RespostaQuiz resposta) {
+        RespostaQuiz respostaAtualizada = respostaQuizService.atualizarRespostaQuiz(id, resposta);
+        if (respostaAtualizada != null) {
+            return ResponseEntity.ok(respostaAtualizada);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+	 */
 	@PostMapping
 	public RespostaQuiz criarRespostaQuiz(@RequestBody RespostaQuiz resposta) {
 		return respostaQuizService.criarRespostaQuiz(resposta);
