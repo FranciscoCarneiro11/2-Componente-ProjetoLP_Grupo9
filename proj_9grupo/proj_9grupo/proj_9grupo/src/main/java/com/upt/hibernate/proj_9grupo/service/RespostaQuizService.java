@@ -1,6 +1,9 @@
 package com.upt.hibernate.proj_9grupo.service;
 
+import com.upt.hibernate.proj_9grupo.model.Pergunta;
+import com.upt.hibernate.proj_9grupo.model.Quiz;
 import com.upt.hibernate.proj_9grupo.model.RespostaQuiz;
+import com.upt.hibernate.proj_9grupo.repository.PerguntaRepository;
 import com.upt.hibernate.proj_9grupo.repository.RespostaQuizRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,10 +13,12 @@ import java.util.Optional;
 @Service
 public class RespostaQuizService {
 	private final RespostaQuizRepository respostaquizRepository;
+	private final PerguntaRepository perguntaRepository;
 	
 	@Autowired
-	public RespostaQuizService(RespostaQuizRepository respostaquizRepository) {
+	public RespostaQuizService(RespostaQuizRepository respostaquizRepository, PerguntaRepository perguntaRepository) {
 		this.respostaquizRepository = respostaquizRepository;
+		this.perguntaRepository = perguntaRepository;
 	}
 	
 	public List<RespostaQuiz> getAllRespostas(){
@@ -25,29 +30,51 @@ public class RespostaQuizService {
 		}
 
 	public RespostaQuiz criarRespostaQuiz(RespostaQuiz respostaquiz) {
-		if (respostaquiz.getAluno() == null) {
-	        throw new RuntimeException("O aluno não pode ser nulo!");
-	    }
+        Quiz quiz = respostaquiz.getQuiz();
+        List<Pergunta> perguntas = perguntaRepository.findByQuiz(quiz); 
 
-	    if (respostaquiz.getQuiz() == null) {
-	        throw new RuntimeException("O quiz não pode ser nulo!");
-	    }
+        int pontuacao = 0;
 
-	    if (respostaquiz.getPontuacao() < 0) {
-	        throw new RuntimeException("A pontuação não pode ser menor que 0.");
-	    }
-	    
-	    if (respostaquizRepository.existsByAlunoAndQuiz(respostaquiz.getAluno(), respostaquiz.getQuiz())) {
-	        throw new RuntimeException("O aluno já respondeu a este quiz!!");
-	    }
-		
-		return respostaquizRepository.save(respostaquiz);
-	}
+        
+        for (int i = 0; i < perguntas.size(); i++) {
+            if (i < respostaquiz.getRespostas().size()) {
+                String respostaDada = respostaquiz.getRespostas().get(i);
+                if (respostaDada != null && respostaDada.equals(perguntas.get(i).getRespostaCorreta())) {
+                    pontuacao++;
+                }
+            }
+        }
+
+        respostaquiz.setPontuacao(pontuacao);
+
+        
+        if (respostaquiz.getAluno() == null) {
+            throw new RuntimeException("O aluno não pode ser nulo!");
+        }
+        if (respostaquiz.getQuiz() == null) {
+            throw new RuntimeException("O quiz não pode ser nulo!");
+        }
+        if (respostaquiz.getPontuacao() < 0) {
+            throw new RuntimeException("A pontuação não pode ser menor que 0 !");
+        }
+
+        return respostaquizRepository.save(respostaquiz);
+    }
+
 	
-	/*public RespostaQuiz atualizarRespostasQuiz(Long id, RespostaQuiz respostaquiz) {
-	 * 
-	}
-	*/
+	/*
+	 * public RespostaQuiz atualizarRespostaQuiz(Long id, RespostaQuiz resposta) {
+        Optional<RespostaQuiz> respostaExistente = respostaQuizRepository.findById(id);
+        if (respostaExistente.isPresent()) {
+            RespostaQuiz respostaAtualizada = respostaExistente.get();
+            respostaAtualizada.setRespostas(resposta.getRespostas()); 
+            // Aqui você pode recalcular a pontuação, se necessário
+            return respostaQuizRepository.save(respostaAtualizada);
+        }
+        return null; 
+    }
+	 */
+	
 	
 	public void eliminarRespostaQuiz(Long id) {
 		if (respostaquizRepository.existsById(id)) {

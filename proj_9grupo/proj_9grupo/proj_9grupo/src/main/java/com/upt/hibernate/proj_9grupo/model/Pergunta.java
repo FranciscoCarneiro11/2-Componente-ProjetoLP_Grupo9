@@ -23,10 +23,13 @@ public class Pergunta {
 
     @Column(name = "opcao_d", nullable = false)
     private String opcaoD;
-
+    
     @ManyToOne
     @JoinColumn(name = "quiz_id")
     private Quiz quiz;
+    
+    @Column(name = "respostaCorreta", nullable = false)
+    private String respostaCorreta;
 
     // Get's e set's
     public int getId() { 
@@ -77,4 +80,12 @@ public class Pergunta {
     public void setQuiz(Quiz quiz) { 
     	this.quiz = quiz; 
     }
+	public String getRespostaCorreta() {
+		return respostaCorreta;
+	}
+	public void setRespostaCorreta(String respostaCorreta) {
+		this.respostaCorreta = respostaCorreta;
+	}
+    
+    
 }
