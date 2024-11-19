@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import com.upt.hibernate.proj_9grupo.model.Aluno;
+import com.upt.hibernate.proj_9grupo.model.Utilizador;
 
 public class AlunoClient {
 
@@ -48,11 +49,12 @@ public class AlunoClient {
 	
 	  public void criarAluno() {
 	        Aluno aluno = new Aluno();
-	        
-	        aluno.setNome("Francisco");
-	        aluno.setEmail("francisco@gmail.com");
-	        aluno.setAnoEscolaridade(12);
-	        aluno.setNumAluno(50265);
+
+        	aluno.setNome("Teste");
+        	aluno.setEmail("teste@gmail.com");
+        	aluno.setNumAluno(1); // Certifique-se de que este número não está em uso
+        	aluno.setAnoEscolaridade(1);
+        	aluno.setTipoUtilizador(Utilizador.TipoUtilizador.aluno);
 	        
 	        ResponseEntity<Aluno> response = restTemplate.postForEntity(rootAPIURL, aluno, Aluno.class);
 	        

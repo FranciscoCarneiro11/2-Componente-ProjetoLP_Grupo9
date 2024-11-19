@@ -2,6 +2,7 @@ package com.upt.hibernate.proj_9grupo.client;
 
 import java.util.Scanner;
 
+
 public class Main {
     public static void main(String[] args) {
         AlunoClient alunoClient = new AlunoClient();
@@ -10,7 +11,7 @@ public class Main {
 
         do {
             System.out.println("Menu:");
-            System.out.println("1. Obter Aluno por ID");
+            System.out.println("1. Obter um aluno através do ID");
             System.out.println("2. Obter Todos os Alunos");
             System.out.println("3. Criar Novo Aluno");
             System.out.println("4. Atualizar Aluno");

@@ -52,9 +52,7 @@ public class RespostaQuizService {
                 }
             }
         }
-
         respostaquiz.setPontuacao(pontuacao);
-
         
         if (respostaquiz.getAluno() == null) {
             throw new RuntimeException("O aluno não pode ser nulo!");
