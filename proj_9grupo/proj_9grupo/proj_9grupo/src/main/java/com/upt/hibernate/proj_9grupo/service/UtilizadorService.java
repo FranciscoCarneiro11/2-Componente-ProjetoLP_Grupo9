@@ -90,15 +90,13 @@ public class UtilizadorService {
 	
 	
 	public void eliminarUtilizador(Long id) {
-		if (alunosRepository.existsById(id)) {
-			alunosRepository.deleteById(id);
-		}
-		if (professorRepository.existsById(id)) {
-			professorRepository.deleteById(id);
-		}
-		
-		throw new RuntimeException("Utilizador não encontrado com o id: "+ id);
-		
+	    if (alunosRepository.existsById(id)) {
+	        alunosRepository.deleteById(id);
+	    } else if (professorRepository.existsById(id)) {
+	        professorRepository.deleteById(id);
+	    } else {
+	        throw new RuntimeException("Utilizador não encontrado com o id: " + id);
+	    }
 	}
 	
 }

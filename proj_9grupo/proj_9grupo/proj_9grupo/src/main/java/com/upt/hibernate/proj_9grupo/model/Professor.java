@@ -3,7 +3,6 @@ package com.upt.hibernate.proj_9grupo.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,7 +22,6 @@ public class Professor extends Utilizador {
     private String disciplina;
     
     @OneToMany(mappedBy = "professor")
-    @JsonBackReference
     private List<Quiz> quizzes = new ArrayList<>();
 
 
