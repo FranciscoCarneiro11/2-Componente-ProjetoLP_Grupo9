@@ -52,7 +52,7 @@ public class AlunoClient {
 
         	aluno.setNome("Teste");
         	aluno.setEmail("teste@gmail.com");
-        	aluno.setNumAluno(1); // Certifique-se de que este número não está em uso
+        	aluno.setNumAluno(1); 
         	aluno.setAnoEscolaridade(1);
         	aluno.setTipoUtilizador(Utilizador.TipoUtilizador.aluno);
 	        

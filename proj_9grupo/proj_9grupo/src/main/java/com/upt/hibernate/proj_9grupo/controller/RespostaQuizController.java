@@ -20,10 +20,10 @@ public class RespostaQuizController {
         return ResponseEntity.ok(respostaQuizService.getAllRespostas());
     }
 	
-	@GetMapping("/{id}")
-	public ResponseEntity<RespostaQuiz> getRespostaById(@PathVariable Long id) {
-		Optional<RespostaQuiz> resposta = respostaQuizService.getRespostasById(id);
-		return resposta.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+	@GetMapping("/aluno/{id}")
+	public ResponseEntity<List<RespostaQuiz>> getRespostasByAlunoId(@PathVariable Long id) {
+	    List<RespostaQuiz> respostas = respostaQuizService.getRespostasByAlunoId(id);
+	    return ResponseEntity.ok(respostas);
 	}
 	/*
 	 * @PutMapping("/{id}")

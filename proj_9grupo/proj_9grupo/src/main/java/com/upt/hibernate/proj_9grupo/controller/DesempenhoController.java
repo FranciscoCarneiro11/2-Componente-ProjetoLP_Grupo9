@@ -36,16 +36,16 @@ public class DesempenhoController {
             return ResponseEntity.notFound().build();
         }
 
-        // Obtenha as respostas do quiz para todos os alunos
+        
         List<RespostaQuiz> respostas = respostaQuizRepository.findByQuiz(quizOpt.get());
         if (respostas.isEmpty()) {
-            return ResponseEntity.ok(Collections.emptyList()); // Retorna uma lista vazia se não houver respostas
+            return ResponseEntity.ok(Collections.emptyList()); 
         }
 
-        // Processar as respostas e gerar o relatório de desempenho
+        
         List<RelatorioDesempenho> relatorio = new ArrayList<>();
         for (RespostaQuiz resposta : respostas) {
-            // Aqui você pode calcular a pontuação e outras métricas
+            
         	RelatorioDesempenho desempenho = new RelatorioDesempenho();
             desempenho.setAluno(resposta.getAluno());
             desempenho.setPontuacao(resposta.getPontuacao());
