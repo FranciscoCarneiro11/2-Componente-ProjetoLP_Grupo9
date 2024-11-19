@@ -34,6 +34,10 @@ public class QuizService {
 			throw new RuntimeException("O título do quiz não pode ser vazio!");
 		}
 		
+		if (quiz.getProfessor() == null || !professorRepository.existsById((long) quiz.getProfessor().getId())) {
+	        throw new RuntimeException("Apenas professores registrados podem criar quizzes!");
+	    }
+		
 		if(quiz.getProfessor() == null) {
 			throw new RuntimeException("O professor não pode ser nulo||");
 		}

@@ -3,6 +3,8 @@ package com.upt.hibernate.proj_9grupo.service;
 import com.upt.hibernate.proj_9grupo.model.Aluno;
 import com.upt.hibernate.proj_9grupo.model.Utilizador;
 import com.upt.hibernate.proj_9grupo.repository.AlunosRepository;
+import com.upt.hibernate.proj_9grupo.repository.UtilizadorRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -13,10 +15,12 @@ import java.util.Optional;
 public class AlunoService {
 
     private final AlunosRepository alunosRepository;
+    private final UtilizadorRepository utilizadorRepository;
 
     @Autowired
-    public AlunoService(AlunosRepository alunosRepository) {
+    public AlunoService(AlunosRepository alunosRepository, UtilizadorRepository utilizadorRepository) {
         this.alunosRepository = alunosRepository;
+        this.utilizadorRepository = utilizadorRepository;
     }
 
     public List<Aluno> getAllAlunos() {
@@ -28,6 +32,10 @@ public class AlunoService {
     }
 
     public Aluno criarAluno(Aluno aluno) {
+    	 if (utilizadorRepository.existsByEmail(aluno.getEmail())) {
+    	        throw new RuntimeException("Email já registrado!");
+    	    }
+    	
     	if(aluno.getNumAluno() <= 0) {
     		throw new RuntimeException("O nº do aluno deve ser maior que 0!!!");
     	}

@@ -4,6 +4,7 @@ import com.upt.hibernate.proj_9grupo.model.Pergunta;
 import com.upt.hibernate.proj_9grupo.model.Quiz;
 import com.upt.hibernate.proj_9grupo.model.RespostaQuiz;
 import com.upt.hibernate.proj_9grupo.repository.PerguntaRepository;
+import com.upt.hibernate.proj_9grupo.repository.QuizRepository;
 import com.upt.hibernate.proj_9grupo.repository.RespostaQuizRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,11 +15,14 @@ import java.util.Optional;
 public class RespostaQuizService {
 	private final RespostaQuizRepository respostaquizRepository;
 	private final PerguntaRepository perguntaRepository;
+	private final QuizRepository quizRepository;
+	
 	
 	@Autowired
-	public RespostaQuizService(RespostaQuizRepository respostaquizRepository, PerguntaRepository perguntaRepository) {
+	public RespostaQuizService(RespostaQuizRepository respostaquizRepository, PerguntaRepository perguntaRepository, QuizRepository quizRepository) {
 		this.respostaquizRepository = respostaquizRepository;
 		this.perguntaRepository = perguntaRepository;
+		this.quizRepository = quizRepository;
 	}
 	
 	public List<RespostaQuiz> getAllRespostas(){
@@ -31,6 +35,10 @@ public class RespostaQuizService {
 
 	public RespostaQuiz criarRespostaQuiz(RespostaQuiz respostaquiz) {
         Quiz quiz = respostaquiz.getQuiz();
+        if (quiz == null || !quizRepository.existsById((long) quiz.getId())) {
+            throw new RuntimeException("Quiz não encontrado!");
+        }
+        
         List<Pergunta> perguntas = perguntaRepository.findByQuiz(quiz); 
 
         int pontuacao = 0;

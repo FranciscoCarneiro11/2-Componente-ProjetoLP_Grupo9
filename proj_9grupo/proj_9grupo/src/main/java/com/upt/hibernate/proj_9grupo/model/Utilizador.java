@@ -1,5 +1,8 @@
 package com.upt.hibernate.proj_9grupo.model;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -14,6 +17,11 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "utilizador")
 @Inheritance(strategy = InheritanceType.JOINED)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "tipoUtilizador")
+@JsonSubTypes({
+    @JsonSubTypes.Type(value = Aluno.class, name = "aluno"),
+    @JsonSubTypes.Type(value = Professor.class, name = "professor")
+})
 public abstract class Utilizador {
     
 	public enum TipoUtilizador {
