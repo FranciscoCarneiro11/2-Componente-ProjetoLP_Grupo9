@@ -30,53 +30,48 @@ public class RespostaQuizService {
 		}
 
 	public RespostaQuiz criarRespostaQuiz(RespostaQuiz respostaquiz) {
-        
         Quiz quiz = respostaquiz.getQuiz();
-		List<Pergunta> perguntas = perguntaRepository.findByQuiz(quiz); 
+        List<Pergunta> perguntas = perguntaRepository.findByQuiz(quiz); 
 
         int pontuacao = 0;
 
-        for (Pergunta pergunta : perguntas) {
-            String respostaDada = respostaquiz.getRespostas().get(pergunta.getId()); 
-            if (respostaDada != null && respostaDada.equals(pergunta.getRespostaCorreta())) { 
-                pontuacao++; 
+        
+        for (int i = 0; i < perguntas.size(); i++) {
+            if (i < respostaquiz.getRespostas().size()) {
+                String respostaDada = respostaquiz.getRespostas().get(i);
+                if (respostaDada != null && respostaDada.equals(perguntas.get(i).getRespostaCorreta())) {
+                    pontuacao++;
+                }
             }
         }
 
-        respostaquiz.setPontuacao(pontuacao); 
+        respostaquiz.setPontuacao(pontuacao);
 
-        // Verificar se a resposta é válida
         
         if (respostaquiz.getAluno() == null) {
             throw new RuntimeException("O aluno não pode ser nulo!");
         }
-
         if (respostaquiz.getQuiz() == null) {
             throw new RuntimeException("O quiz não pode ser nulo!");
         }
-
         if (respostaquiz.getPontuacao() < 0) {
-            throw new RuntimeException("A pontuação não pode ser menor que 0.");
+            throw new RuntimeException("A pontuação não pode ser menor que 0 !");
         }
 
-        if (respostaquizRepository.existsByAlunoAndQuiz(respostaquiz.getAluno(), respostaquiz.getQuiz())) {
-            throw new RuntimeException("O aluno já respondeu a este quiz!!");
-        }
-
-        
         return respostaquizRepository.save(respostaquiz);
     }
+
 	
 	/*
 	 * public RespostaQuiz atualizarRespostaQuiz(Long id, RespostaQuiz resposta) {
         Optional<RespostaQuiz> respostaExistente = respostaQuizRepository.findById(id);
         if (respostaExistente.isPresent()) {
             RespostaQuiz respostaAtualizada = respostaExistente.get();
-            respostaAtualizada.setRespostas(resposta.getRespostas()); // Atualizando as respostas
+            respostaAtualizada.setRespostas(resposta.getRespostas()); 
             // Aqui você pode recalcular a pontuação, se necessário
             return respostaQuizRepository.save(respostaAtualizada);
         }
-        return null; // ou lançar uma exceção, se preferir
+        return null; 
     }
 	 */
 	

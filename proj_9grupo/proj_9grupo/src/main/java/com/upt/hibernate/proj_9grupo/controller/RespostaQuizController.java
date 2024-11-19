@@ -16,9 +16,9 @@ public class RespostaQuizController {
 	private RespostaQuizService respostaQuizService;
 	
 	@GetMapping
-	public List<RespostaQuiz> getAllRespostas() {
-	return respostaQuizService.getAllRespostas();
-	}
+    public ResponseEntity<List<RespostaQuiz>> getAllRespostas() {
+        return ResponseEntity.ok(respostaQuizService.getAllRespostas());
+    }
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<RespostaQuiz> getRespostaById(@PathVariable Long id) {
@@ -37,9 +37,10 @@ public class RespostaQuizController {
     }
 	 */
 	@PostMapping
-	public RespostaQuiz criarRespostaQuiz(@RequestBody RespostaQuiz resposta) {
-		return respostaQuizService.criarRespostaQuiz(resposta);
-	}
+    public ResponseEntity<RespostaQuiz> criarRespostaQuiz(@RequestBody RespostaQuiz respostaquiz) {
+        RespostaQuiz novaResposta = respostaQuizService.criarRespostaQuiz(respostaquiz);
+        return ResponseEntity.ok(novaResposta);
+    }
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> eliminarResposta(@PathVariable Long id) {

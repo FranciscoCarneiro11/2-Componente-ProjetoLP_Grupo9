@@ -22,11 +22,11 @@ public class RespostaQuiz {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "idAluno")
+    @JoinColumn(name = "fk_aluno")
     private Aluno aluno;
 
     @ManyToOne
-    @JoinColumn(name = "quiz_id")
+    @JoinColumn(name = "fk_quiz")
     private Quiz quiz;
 
     @Column(nullable = false)
@@ -35,7 +35,7 @@ public class RespostaQuiz {
     @ElementCollection
     @CollectionTable(name = "respostas_perguntas", joinColumns = @JoinColumn(name = "resposta_quiz_id"))
     @Column(name = "resposta") 
-    private List<String> respostas = new ArrayList<>(); 
+    private List<String> respostas = new ArrayList<>();
 
     // Get's e set's
     public int getId() { 

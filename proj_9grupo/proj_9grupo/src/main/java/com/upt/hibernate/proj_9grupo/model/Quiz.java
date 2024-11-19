@@ -1,6 +1,7 @@
 package com.upt.hibernate.proj_9grupo.model;
 
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.List;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -30,9 +31,11 @@ public class Quiz {
 
     @ManyToOne
     @JoinColumn(name = "idProfessor")
+    @JsonManagedReference
     private Professor professor;
 
     @OneToMany(mappedBy = "quiz")
+    @JsonBackReference
     private List<Pergunta> perguntas = new ArrayList<>();
 
     // Get's e set's
