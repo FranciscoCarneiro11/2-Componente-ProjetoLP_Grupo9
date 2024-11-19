@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 public interface QuizRepository extends JpaRepository<Quiz, Long> {
 	
 	List <Quiz> findByTitulo(String titulo);
-	//boolean existsByTitulo(String titulo);
 	List <Quiz> findByProfessor(Professor professor);
 	
 	

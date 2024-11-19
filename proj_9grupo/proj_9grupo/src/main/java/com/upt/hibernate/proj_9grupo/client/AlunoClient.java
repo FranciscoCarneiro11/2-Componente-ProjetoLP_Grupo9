@@ -1,4 +1,3 @@
-
 package com.upt.hibernate.proj_9grupo.client;
 
 import org.springframework.http.HttpEntity;

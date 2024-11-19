@@ -51,11 +51,6 @@ public class PerguntaService {
         return perguntaRepository.save(pergunta);
     }
 	
-	/*public Pergunta atualizarPergunta(Long id, Pergunta pergunta) {
-	 * 
-	}
-	*/
-	
 	public void eliminarPergunta(Long id) {
 		if (perguntaRepository.existsById(id)) {
 			perguntaRepository.deleteById(id);

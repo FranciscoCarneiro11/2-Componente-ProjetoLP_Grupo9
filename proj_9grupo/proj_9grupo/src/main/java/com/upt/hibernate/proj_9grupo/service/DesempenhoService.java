@@ -31,18 +31,25 @@ public class DesempenhoService {
 
 	    List<RespostaQuiz> respostas = respostaQuizRepository.findByQuiz(quiz);
 	    System.out.println("Respostas encontradas: " + respostas.size());
-	    
-	    respostas.sort(Comparator.comparingInt(RespostaQuiz::getPontuacao).reversed());
 
 	    List<RelatorioDesempenho> relatorio = new ArrayList<>();
-	    for (int i = 0; i < respostas.size(); i++) {
-	        RespostaQuiz resposta = respostas.get(i);
+	    for (RespostaQuiz resposta : respostas) {
 	        if (resposta.getAluno() != null) {
-	            relatorio.add(new RelatorioDesempenho(resposta.getPontuacao(), i + 1));
+	            RelatorioDesempenho desempenho = new RelatorioDesempenho();
+	            desempenho.setAluno(resposta.getAluno());
+	            desempenho.setPontuacao(resposta.getPontuacao());
+	            relatorio.add(desempenho);
 	        } else {
 	            System.out.println("Aluno não encontrado para a resposta: " + resposta.getId());
 	        }
 	    }
+
+	    relatorio.sort(Comparator.comparingInt(RelatorioDesempenho::getPontuacao).reversed());
+
+	    for (int i = 0; i < relatorio.size(); i++) {
+	        relatorio.get(i).setPosicao(i + 1);
+	    }
+
 	    return relatorio;
 	}
 }

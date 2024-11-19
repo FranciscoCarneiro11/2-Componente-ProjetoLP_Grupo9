@@ -39,5 +39,11 @@ public class RelatorioDesempenho {
 	public void setPosicao(int posicao) {
 		this.posicao = posicao;
 	}
+
+	@Override
+	public String toString() {
+		return "RelatorioDesempenho [aluno=" + aluno + ", pontuacao=" + pontuacao + ", posicao=" + posicao + "]";
+	}
     
+	
 }

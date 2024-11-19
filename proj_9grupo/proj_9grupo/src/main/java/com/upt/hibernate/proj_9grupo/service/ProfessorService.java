@@ -48,12 +48,23 @@ public class ProfessorService {
 	}
 	
 	public Professor updateProfessor(Long id, Professor detalhesProfessor) {
+		 if (id == null) {
+	            throw new IllegalArgumentException("O ID não pode ser nulo.");
+	        }
+		 
+		 System.out.println("Atualizando professor com ID: " + id);
+	     System.out.println("Detalhes do Professor: " + detalhesProfessor);
+		
 		Professor professor = professorRepository.findById(id).orElse(null);
 		if(professor != null) {
 			professor.setNome(detalhesProfessor.getNome());
 			professor.setEmail(detalhesProfessor.getEmail());
 			professor.setDisciplina(detalhesProfessor.getDisciplina());
 			professor.setNumProfessor(detalhesProfessor.getNumProfessor());
+			
+			return professorRepository.save(professor);
+		} else {
+			System.out.println("Professor não encontrado com id: " + id);
 		}
 		
 		return null;

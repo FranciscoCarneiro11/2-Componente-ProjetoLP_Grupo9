@@ -1,7 +1,6 @@
 package com.upt.hibernate.proj_9grupo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import com.upt.hibernate.proj_9grupo.model.Professor;
+import com.upt.hibernate.proj_9grupo.repository.ProfessorRepository;
 import com.upt.hibernate.proj_9grupo.service.ProfessorService;
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +23,9 @@ public class ProfessorController {
 	
 	@Autowired
 	private ProfessorService professorService;
+	
+	 @Autowired 
+	private ProfessorRepository professorRepository;
 	
 	@GetMapping
 	public List<Professor> getAllProfessores() {
@@ -37,13 +40,30 @@ public class ProfessorController {
 	
 	@PostMapping
 	public Professor criarProfessor(@RequestBody Professor professor) {
-		return professorService.criarProfessor(professor);
+		 Professor novoProfessor = professorService.criarProfessor(professor);
+	     System.out.println("Professor criado com ID: " + novoProfessor.getId());
+
+	     Optional<Professor> professorVerificado = professorRepository.findById((long) novoProfessor.getId());
+	        if (professorVerificado.isPresent()) {
+	            System.out.println("Professor verificado com ID: " + professorVerificado.get().getId());
+	        } else {
+	            System.out.println("Professor não encontrado com ID: " + novoProfessor.getId());
+	        }
+
+	        return novoProfessor;
 	}
 	
 	@PutMapping("/{id}")
-	 public Professor updateProfessor(@PathVariable Long id, @RequestBody Professor professor) {
-	 return professorService.updateProfessor(id, professor);
-	 }
+    public ResponseEntity<Professor> updateProfessor(@PathVariable Long id, @RequestBody Professor professor) {
+        if (id == null) {
+            return ResponseEntity.badRequest().body(null);
+        }
+        Professor professorAtualizado = professorService.updateProfessor(id, professor);
+        if (professorAtualizado == null) {
+            return ResponseEntity.notFound().build(); 
+        }
+        return ResponseEntity.ok(professorAtualizado);
+    }
 
 	
 	@DeleteMapping("/{id}")

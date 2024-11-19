@@ -48,7 +48,6 @@ public class RespostaQuizService {
 	        throw new RuntimeException("Aluno não encontrado com ID: " + respostaquiz.getAluno().getId());
 	    }
 
-	    // Verifique se o quiz existe
 	    Optional<Quiz> quizOpt = quizRepository.findById((long) respostaquiz.getQuiz().getId());
 	    if (!quizOpt.isPresent()) {
 	        throw new RuntimeException("Quiz não encontrado com ID: " + respostaquiz.getQuiz().getId());

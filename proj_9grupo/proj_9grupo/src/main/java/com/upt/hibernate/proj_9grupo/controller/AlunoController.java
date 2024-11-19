@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,8 +54,15 @@ public class AlunoController {
     }
 
     @PutMapping("/{id}")
-    public Aluno updateAluno(@PathVariable Long id, @RequestBody Aluno aluno) {
-        return alunoService.updateAluno(id, aluno);
+    public ResponseEntity<Aluno> updateAluno(@PathVariable Long id, @RequestBody Aluno aluno) {
+        if (id == null) {
+            return ResponseEntity.badRequest().body(null);
+        }
+        Aluno alunoAtualizado = alunoService.updateAluno(id, aluno);
+        if (alunoAtualizado == null) {
+            return ResponseEntity.notFound().build(); 
+        }
+        return ResponseEntity.ok(alunoAtualizado);
     }
 
     @DeleteMapping("/{id}")

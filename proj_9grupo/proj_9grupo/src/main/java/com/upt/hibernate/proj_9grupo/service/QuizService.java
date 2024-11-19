@@ -49,11 +49,7 @@ public class QuizService {
 		
 		return quizRepository.save(quiz);
 	}
-	
-	/*public Quiz atualizarQuiz(Long id, Quiz quiz) {
-	 * 
-	}
-	*/
+
 	public void eliminarQuiz(Long id) {
 		if (quizRepository.existsById(id)) {
 				quizRepository.deleteById(id);

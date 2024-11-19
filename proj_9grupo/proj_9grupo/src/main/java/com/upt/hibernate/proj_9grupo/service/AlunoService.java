@@ -49,15 +49,25 @@ public class AlunoService {
     }
 
     public Aluno updateAluno(Long id, Aluno detalhesAluno) {
-    	Aluno aluno = alunosRepository.findById(id).orElse(null);
-    	if(aluno != null) {
-    		aluno.setNome(detalhesAluno.getNome());
-    		aluno.setEmail(detalhesAluno.getEmail());
-    		aluno.setAnoEscolaridade(detalhesAluno.getAnoEscolaridade());
-    		aluno.setNumAluno(detalhesAluno.getNumAluno());
-    	}
-    	
-    	return null;
+        if (id == null) {
+            throw new IllegalArgumentException("O ID não pode ser nulo.");
+        }
+
+        System.out.println("Atualizando aluno com ID: " + id);
+        System.out.println("Detalhes do Aluno: " + detalhesAluno);
+
+        Aluno aluno = alunosRepository.findById(id).orElse(null);
+        if (aluno != null) {
+            aluno.setNome(detalhesAluno.getNome());
+            aluno.setEmail(detalhesAluno.getEmail());
+            aluno.setAnoEscolaridade(detalhesAluno.getAnoEscolaridade());
+            aluno.setNumAluno(detalhesAluno.getNumAluno());
+
+            return alunosRepository.save(aluno);
+        } else {
+            System.out.println("Aluno não encontrado com id: " + id);
+        }
+        return null; 
     }
     
     

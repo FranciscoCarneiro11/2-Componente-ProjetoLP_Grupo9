@@ -64,7 +64,7 @@ public abstract class Utilizador {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    
+
     public TipoUtilizador getTipoUtilizador() {
 		return tipoUtilizador;
 	}
@@ -73,7 +73,7 @@ public abstract class Utilizador {
 		this.tipoUtilizador = tipoUtilizador;
 	}
 
-    public String getEmail() {
+	public String getEmail() {
         return email;
     }
     

@@ -1,7 +1,5 @@
 package com.upt.hibernate.proj_9grupo.controller;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,43 +12,27 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.upt.hibernate.proj_9grupo.model.Quiz;
 import com.upt.hibernate.proj_9grupo.model.RelatorioDesempenho;
-import com.upt.hibernate.proj_9grupo.model.RespostaQuiz;
-import com.upt.hibernate.proj_9grupo.repository.QuizRepository;
-import com.upt.hibernate.proj_9grupo.repository.RespostaQuizRepository;
 import com.upt.hibernate.proj_9grupo.service.DesempenhoService;
+import com.upt.hibernate.proj_9grupo.repository.QuizRepository;
 
 @RestController
 @RequestMapping("/api/desempenho")
 public class DesempenhoController {
 
     @Autowired
-    private RespostaQuizRepository respostaQuizRepository;
+    private DesempenhoService desempenhoService;
 
     @Autowired
     private QuizRepository quizRepository;
 
-    @GetMapping("/{quizId}")
-    public ResponseEntity<List<RelatorioDesempenho>> obterDesempenho(@PathVariable Long quizId) {
+    @GetMapping("/{quizId}/relatorio")
+    public ResponseEntity<List<RelatorioDesempenho>> obterRelatorioDesempenho(@PathVariable Long quizId) {
         Optional<Quiz> quizOpt = quizRepository.findById(quizId);
         if (!quizOpt.isPresent()) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.notFound().build(); 
         }
 
-        
-        List<RespostaQuiz> respostas = respostaQuizRepository.findByQuiz(quizOpt.get());
-        if (respostas.isEmpty()) {
-            return ResponseEntity.ok(Collections.emptyList()); 
-        }
-
-        
-        List<RelatorioDesempenho> relatorio = new ArrayList<>();
-        for (RespostaQuiz resposta : respostas) {
-            
-        	RelatorioDesempenho desempenho = new RelatorioDesempenho();
-            desempenho.setAluno(resposta.getAluno());
-            desempenho.setPontuacao(resposta.getPontuacao());
-            relatorio.add(desempenho);
-        }
+        List<RelatorioDesempenho> relatorio = desempenhoService.criarRelatorioDesempenho(quizId);
 
         return ResponseEntity.ok(relatorio);
     }
