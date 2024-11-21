@@ -11,7 +11,6 @@ public interface AlunosRepository extends JpaRepository<Aluno, Long> {
 	List <Aluno> findByNome(String nome);
 	List <Aluno> findByNumAluno(int numAluno);
 	List <Aluno> findByAnoEscolaridade(int anoEscolaridade);
-	//boolean existsByEmail(String email);
 	boolean existsByNumAluno(int numAluno);
 	
 }

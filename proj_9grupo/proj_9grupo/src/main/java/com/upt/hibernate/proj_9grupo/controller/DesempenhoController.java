@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.upt.hibernate.proj_9grupo.model.Quiz;
 import com.upt.hibernate.proj_9grupo.model.RelatorioDesempenho;
 import com.upt.hibernate.proj_9grupo.service.DesempenhoService;
+import com.upt.hibernate.proj_9grupo.service.RespostaQuizService;
 import com.upt.hibernate.proj_9grupo.repository.QuizRepository;
 
 @RestController
@@ -21,6 +22,9 @@ public class DesempenhoController {
 
     @Autowired
     private DesempenhoService desempenhoService;
+    
+    @Autowired
+    private RespostaQuizService respostaquizService;
 
     @Autowired
     private QuizRepository quizRepository;
@@ -35,5 +39,11 @@ public class DesempenhoController {
         List<RelatorioDesempenho> relatorio = desempenhoService.criarRelatorioDesempenho(quizId);
 
         return ResponseEntity.ok(relatorio);
+    }
+    
+    @GetMapping("/quiz/{quizId}/aluno")
+    public ResponseEntity<Long> contarAlunos(@PathVariable Long quizId) {
+		long numeroDeAlunos = respostaquizService.contarAlunosPorQuiz(quizId);
+        return ResponseEntity.ok(numeroDeAlunos);
     }
 }

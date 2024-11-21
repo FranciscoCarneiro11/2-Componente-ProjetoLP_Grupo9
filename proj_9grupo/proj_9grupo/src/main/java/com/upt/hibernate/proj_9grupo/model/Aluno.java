@@ -20,7 +20,6 @@ public class Aluno extends Utilizador {
 	    @Column(name = "anoEscolaridade")
 	    private int anoEscolaridade;
 
-	    // Get's e set's
 	    public int getNumAluno() {
 	        return numAluno;
 	    }

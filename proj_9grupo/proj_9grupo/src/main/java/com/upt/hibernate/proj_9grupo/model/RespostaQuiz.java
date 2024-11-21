@@ -7,6 +7,7 @@ import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -22,11 +23,11 @@ public class RespostaQuiz {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "fk_aluno")
+    @JoinColumn(name = "fk_aluno", nullable = false)
     private Aluno aluno;
-
+    
     @ManyToOne
-    @JoinColumn(name = "fk_quiz")
+    @JoinColumn(name = "fk_quiz", nullable = false)
     private Quiz quiz;
 
     @Column(nullable = false)

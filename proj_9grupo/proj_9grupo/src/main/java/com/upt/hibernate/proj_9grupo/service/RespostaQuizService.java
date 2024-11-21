@@ -92,20 +92,6 @@ public class RespostaQuizService {
     }
 
 	
-	/*
-	 * public RespostaQuiz atualizarRespostaQuiz(Long id, RespostaQuiz resposta) {
-        Optional<RespostaQuiz> respostaExistente = respostaQuizRepository.findById(id);
-        if (respostaExistente.isPresent()) {
-            RespostaQuiz respostaAtualizada = respostaExistente.get();
-            respostaAtualizada.setRespostas(resposta.getRespostas()); 
-            // Aqui você pode recalcular a pontuação, se necessário
-            return respostaQuizRepository.save(respostaAtualizada);
-        }
-        return null; 
-    }
-	 */
-	
-	
 	public void eliminarRespostaQuiz(Long id) {
 		if (respostaquizRepository.existsById(id)) {
 				respostaquizRepository.deleteById(id);
@@ -113,6 +99,13 @@ public class RespostaQuizService {
 				throw new RuntimeException("Resposta não encontrada com o id: "+ id);
 		}
 	}
+	
+	public long contarAlunosPorQuiz(Long quizId) {
+        Quiz quiz = quizRepository.findById(quizId)
+            .orElseThrow(() -> new RuntimeException("Quiz não encontrado com ID: " + quizId));
+
+        return respostaquizRepository.findByQuiz(quiz).size(); 
+    }
 	
 }
 
