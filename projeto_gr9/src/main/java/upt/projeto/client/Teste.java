@@ -78,8 +78,15 @@ public class Teste extends Application {
             if(loginService.login(email, password)) {
             	System.out.println("Login bem sucedido: Email: " + email);
             	loginStage.close();
+            	Utilizador utilizador = loginService.getUtilizador(email); 
+                if (utilizador != null) {
+                    if (utilizador.getTipoUtilizador() == Utilizador.TipoUtilizador.professor) {
+                        MenuProfessor menuProfessor = new MenuProfessor(primaryStage);
+                        menuProfessor.start(new Stage());  
+                }
             } else {
             	errorMessageLabel.setText("Email ou senha incorretos.");
+            }
             }
         });
 

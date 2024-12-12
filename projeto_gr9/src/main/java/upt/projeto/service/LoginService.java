@@ -2,6 +2,8 @@ package upt.projeto.service;
 
 import upt.projeto.model.Login;
 import upt.projeto.model.RespostaLogin;
+import upt.projeto.model.Utilizador;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
@@ -24,6 +26,16 @@ public class LoginService {
         }
     }
     
-    
+    public Utilizador getUtilizador(String email) {
+        String url = BASE_URL + "/utilizador/email/" + email; 
+        ResponseEntity<Utilizador> response = restTemplate.getForEntity(url, Utilizador.class);
+
+        if (response.getStatusCode().is2xxSuccessful()) {
+            return response.getBody(); 
+        } else {
+            System.out.println("Falha ao obter utilizador: " + response.getStatusCode());
+            return null; 
+        }
+    }
     
 }

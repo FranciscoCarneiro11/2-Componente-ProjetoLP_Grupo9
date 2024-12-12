@@ -23,6 +23,11 @@ public class Professor extends Utilizador {
     private List<Quiz> quizzes = new ArrayList<>();
 
     
+ 
+    public Professor() {
+        super(); 
+    }
+    
     public Professor(String nome, String email, int numProfessor, String senha) {
         super.setNome(nome);
         super.setEmail(email);
