@@ -34,7 +34,10 @@ public class AlunoController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Aluno> getAlunoById(@PathVariable Long id) {
-        Optional<Aluno> aluno = alunoService.getAlunoById(id);
+    	if (id < 0) {
+            return ResponseEntity.badRequest().body(null); 
+        }
+    	Optional<Aluno> aluno = alunoService.getAlunoById(id);
         return aluno.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 

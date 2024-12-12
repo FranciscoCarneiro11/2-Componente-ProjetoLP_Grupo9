@@ -34,6 +34,9 @@ public class ProfessorController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Professor> getProfessorById(@PathVariable Long id) {
+		if (id == null || id < 0) {
+			return ResponseEntity.badRequest().body(null); 
+		}
 		Optional<Professor> professor = professorService.getProfessorById(id);
 		return professor.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
 	}

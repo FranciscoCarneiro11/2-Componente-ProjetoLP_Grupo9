@@ -99,4 +99,13 @@ public class UtilizadorService {
 	    }
 	}
 	
+	public boolean authenticate(String email, String password) {
+        Optional<Utilizador> utilizadorOpt = utilizadorRepository.findByEmail(email);
+        if (utilizadorOpt.isPresent()) {
+            Utilizador utilizador = utilizadorOpt.get();
+            return utilizador.getPassword().equals(password); 
+        }
+        return false; // Usuário não encontrado
+    }
+	
 }

@@ -28,7 +28,10 @@ public class AlunoService {
     }
 
     public Optional<Aluno> getAlunoById(Long id) {
-        return alunosRepository.findById(id);
+    	if (id == null || id < 0) {
+            throw new IllegalArgumentException("O ID não pode ser nulo ou negativo.");
+        }
+    	return alunosRepository.findById(id);
     }
 
     public Aluno criarAluno(Aluno aluno) {
@@ -52,13 +55,27 @@ public class AlunoService {
         if (id == null) {
             throw new IllegalArgumentException("O ID não pode ser nulo.");
         }
+        
+        if (detalhesAluno.getNome() == null || detalhesAluno.getNome().isEmpty()) {
+            throw new IllegalArgumentException("O nome do aluno não pode ser vazio.");
+        }
 
+        if (detalhesAluno.getEmail() == null || detalhesAluno.getEmail().isEmpty()) {
+            throw new IllegalArgumentException("O email do aluno não pode ser vazio.");
+        }
+
+        if (detalhesAluno.getNumAluno() <= 0) {
+            throw new IllegalArgumentException("O nº do aluno deve ser maior que 0.");
+        }
         System.out.println("Atualizando aluno com ID: " + id);
         System.out.println("Detalhes do Aluno: " + detalhesAluno);
 
         Aluno aluno = alunosRepository.findById(id).orElse(null);
         if (aluno != null) {
-            aluno.setNome(detalhesAluno.getNome());
+        	if (utilizadorRepository.existsByEmail(detalhesAluno.getEmail())) {
+                throw new RuntimeException("Email já registrado por outro aluno!");
+            }
+        	aluno.setNome(detalhesAluno.getNome());
             aluno.setEmail(detalhesAluno.getEmail());
             aluno.setAnoEscolaridade(detalhesAluno.getAnoEscolaridade());
             aluno.setNumAluno(detalhesAluno.getNumAluno());

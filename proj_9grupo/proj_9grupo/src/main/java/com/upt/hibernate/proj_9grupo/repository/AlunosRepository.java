@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AlunosRepository extends JpaRepository<Aluno, Long> {
 	
+	//@Query(value = "SELECT " FROM Aluno where numAluno =?1, nativeQuery = true)
 	List <Aluno> findByNome(String nome);
 	List <Aluno> findByNumAluno(int numAluno);
 	List <Aluno> findByAnoEscolaridade(int anoEscolaridade);

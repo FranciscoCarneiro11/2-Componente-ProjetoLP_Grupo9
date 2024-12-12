@@ -49,8 +49,18 @@ public class ProfessorService {
 	
 	public Professor updateProfessor(Long id, Professor detalhesProfessor) {
 		 if (id == null) {
-	            throw new IllegalArgumentException("O ID não pode ser nulo.");
-	        }
+			 throw new IllegalArgumentException("O ID não pode ser nulo.");
+		 }
+		 if (detalhesProfessor.getNome() == null || detalhesProfessor.getNome().isEmpty()) {
+			 throw new IllegalArgumentException("O nome do professor não pode ser vazio.");
+		 }
+		 if (detalhesProfessor.getEmail() == null || detalhesProfessor.getEmail().isEmpty()) {
+			 throw new IllegalArgumentException("O email do professor não pode ser vazio.");
+		 }
+		 
+		 if (detalhesProfessor.getDisciplina() == null || detalhesProfessor.getDisciplina().isEmpty()) {
+			 throw new IllegalArgumentException("A disciplina do professor não pode ser vazia.");
+		 }
 		 
 		 System.out.println("Atualizando professor com ID: " + id);
 	     System.out.println("Detalhes do Professor: " + detalhesProfessor);

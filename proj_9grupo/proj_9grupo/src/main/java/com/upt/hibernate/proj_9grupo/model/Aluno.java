@@ -10,40 +10,39 @@ import jakarta.persistence.Table;
 @PrimaryKeyJoinColumn(name = "idAluno")
 public class Aluno extends Utilizador {
 
-		public Aluno() {
-			
-		}
-		
-	    @Column(name = "numAluno", nullable = false)
-	    private int numAluno;
+    @Column(name = "numAluno", nullable = false)
+    private int numAluno;
 
-	    @Column(name = "anoEscolaridade")
-	    private int anoEscolaridade;
+    @Column(name = "anoEscolaridade")
+    private int anoEscolaridade;
 
-	    public int getNumAluno() {
-	        return numAluno;
-	    }
+   
+    public Aluno() {
+       
+    }
 
-	    public void setNumAluno(int numAluno) {
-	        this.numAluno = numAluno;
-	    }
+    public int getNumAluno() {
+        return numAluno;
+    }
 
-	    public int getAnoEscolaridade() {
-	        return anoEscolaridade;
-	    }
+    public void setNumAluno(int numAluno) {
+        this.numAluno = numAluno;
+    }
 
-	    public void setAnoEscolaridade(int anoEscolaridade) {
-	        this.anoEscolaridade = anoEscolaridade;
-	    }
+    public int getAnoEscolaridade() {
+        return anoEscolaridade;
+    }
 
-		@Override
-		public String toString() {
-			return "Aluno [numAluno=" + numAluno + ", anoEscolaridade=" + anoEscolaridade + ", getId()=" + getId()
-					+ ", getNome()=" + getNome() + ", getTipoUtilizador()=" + getTipoUtilizador() + ", getEmail()="
-					+ getEmail() + "]";
-		}
-	    
-	    
+    public void setAnoEscolaridade(int anoEscolaridade) {
+        this.anoEscolaridade = anoEscolaridade;
+    }
 
+    @Override
+    public String toString() {
+        return "Aluno [numAluno=" + numAluno + ", anoEscolaridade=" + anoEscolaridade + ", getId()=" + getId()
+                + ", getNome()=" + getNome() + ", getTipoUtilizador()=" + getTipoUtilizador() + ", getEmail()="
+                + getEmail() + "]";
+    }
 }
+
 
